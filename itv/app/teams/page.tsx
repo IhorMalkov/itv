@@ -1,31 +1,26 @@
-'use client'
-import { useEffect, useState } from "react";
+import { scrapeTeam } from "@/lib/scraper";
 
-export default function Teams() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/scraper');
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
+export async function getServerSideProps(){
+  try{
+  const rankings = await scrapeTeam();
+  return {
+    props: {rankings},
+  };
+  }catch(error){
+    console.error(`Failed to scrape`, error);
+    return{
+      props: {rankings: []},
     };
-    fetchData();
-  }, []);
+  }
+}
 
-  if (loading) return <p>Loading...</p>;
-
+export default function Teams({rankings}) {
   return (
     <div>
       <h1>Complete Ranking</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+      {rankings.map((team) => (
+          <div>{team.name}</div>
+      ))}
+      </div>
   );
 }

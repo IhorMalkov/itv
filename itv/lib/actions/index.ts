@@ -1,6 +1,6 @@
 "use server"
 
-import { scrapeTeam } from "../scraper/indetx";
+import { scrapeTeam } from "../scraper";
 
 export async function scrapeAndStoreTeams(url:string) {
     if(!url) return
