@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-export default function Home() {
-  return (
+export default function Home(){
+  return(
     <div>
-      <Link href="/teams">See Complete Ranking</Link>
+    <Link href='/teams'>See Ranking</Link>
     </div>
-  );
+  )
 }
