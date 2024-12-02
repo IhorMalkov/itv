@@ -11,6 +11,8 @@
   "dependencies": {
     "next": "15.0.2",
     "puppeteer": "^23.9.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "user-agents": "^1.1.370"
