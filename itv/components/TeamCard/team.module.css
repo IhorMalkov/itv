@@ -1,0 +1,140 @@
+.teamCard {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .position {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1rem;
+    width: 40px;
+  }
+  
+  .positionNumber {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  
+  .positionLine {
+    width: 2px;
+    flex-grow: 1;
+    background: linear-gradient(to bottom, #00ffff, transparent);
+    margin-top: 0.5rem;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .logoWrapper {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .logo {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  .teamCard:hover .logo {
+    transform: scale(1.1);
+  }
+  
+  .info {
+    flex-grow: 1;
+  }
+  
+  .name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.25rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .pointsWrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  
+  .pointsValue {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  
+  .pointsLabel {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+  }
+  
+  .graph {
+    width: 40px;
+    height: 60px;
+    background: rgba(0, 255, 255, 0.1);
+    margin-left: 1rem;
+    position: relative;
+  }
+  
+  .graphBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, #00ffff, rgba(0, 255, 255, 0.3));
+    transition: height 0.3s ease;
+  }
+  
+  @media (max-width: 640px) {
+    .position {
+      width: 30px;
+      margin-right: 0.75rem;
+    }
+  
+    .positionNumber {
+      font-size: 1.25rem;
+    }
+  
+    .logoWrapper {
+      width: 48px;
+      height: 48px;
+      margin-right: 0.75rem;
+    }
+  
+    .name {
+      font-size: 1rem;
+    }
+  
+    .pointsValue {
+      font-size: 1.25rem;
+    }
+  
+    .pointsLabel {
+      font-size: 0.625rem;
+    }
+  
+    .graph {
+      width: 30px;
+      height: 48px;
+      margin-left: 0.75rem;
+    }
+  }
