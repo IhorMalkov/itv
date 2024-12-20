@@ -1,5 +1,6 @@
 .main {
     min-height: 100vh;
+    min-width: 100vw;
     background-color: #0a0a0a;
     background-image: 
       radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.03) 0%, transparent 20%),
@@ -32,6 +33,6 @@
       font-size: 2rem;
       margin-bottom: 1.5rem;
     }
-  }
-  
+  }    
+
   

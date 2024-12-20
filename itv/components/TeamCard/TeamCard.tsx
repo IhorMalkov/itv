@@ -28,10 +28,13 @@ export default function TeamCard({ position, name, points, logo }: TeamCardProps
           </div>
         </div>
         <div className={styles.graph}>
-          <div className={styles.graphBar} style={{ height: `${(points / 1000) * 100}%` }}></div>
+          <div
+            className={styles.graphBar}
+            style={{ height: `${(points / 1000) * 100}%` }}
+          ></div>
         </div>
       </div>
     </Card>
-  )
+  );
 }
 
