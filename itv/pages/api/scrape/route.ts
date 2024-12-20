@@ -8,7 +8,7 @@ export async function GET() {
   try {
     const browser = await puppeteer.launch({ headless: true }); 
     const page = await browser.newPage();
-    const url = "https://www.hltv.org/ranking/teams/2024/december/2";
+    const url = "https://www.hltv.org/ranking/teams/2024/december/9";
 
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
@@ -29,7 +29,10 @@ export async function GET() {
       elements.slice(0, 20).map((el) => el.textContent?.trim())
     );
     const teamLogos = await page.$$eval(".team-logo img", (images) =>
-      images.slice(0, 20).map((img) => img.getAttribute("src"))
+      images
+        .filter((img) => !img.classList.contains("day-only")) 
+        .slice(0, 20) 
+        .map((img) => img.getAttribute("src")) 
     );
     const names = await page.$$eval(".name", (elements) =>
       elements.slice(0, 20).map((el) => el.textContent?.trim())

@@ -19,7 +19,7 @@ export default function RankingPage() {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await fetch("/api/scrape");
+        const response = await fetch('../pages/api/scrape');
         if (!response.ok) {
           throw new Error("Failed to fetch team data.");
         }
@@ -34,6 +34,7 @@ export default function RankingPage() {
 
     fetchTeams();
   }, []);
+
 
   return (
     <main className={styles.main}>
