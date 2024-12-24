@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^6.1.0",
     "@supabase/supabase-js": "^2.47.10",
     "next": "15.0.2",
     "puppeteer": "^23.9.0",
