@@ -3,13 +3,14 @@ import Header from "@/components/Header/Header";
 import Loader from "@/components/Loader/Loader";
 import TeamCard from "@/components/TeamCard/TeamCard";
 import { useEffect, useState } from "react";
-import styles from './page.module.css'; 
+import styles from "./page.module.css";
 
 interface TeamData {
-  position: number;
-  team_name: string;
-  points: number;
-  logo_url: string;
+  id: string;
+  ranking: string;
+  name: string;
+  points: string;
+  logoUrl: string;
 }
 
 export default function RankingPage() {
@@ -46,12 +47,13 @@ export default function RankingPage() {
             <h1 className={styles.title}>Team Rankings</h1>
             <ul className={styles.list}>
               {teams.map((team) => (
-                <li key={team.position}>
+                <li key={team.id}>
+                  {" "}
                   <TeamCard
-                    position={team.position}
-                    name={team.team_name}
+                    position={team.ranking}
+                    name={team.name}
                     points={team.points}
-                    logo={team.logo_url}
+                    logo={team.logoUrl}
                   />
                 </li>
               ))}

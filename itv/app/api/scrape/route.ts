@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import { v4 as uuidv4 } from "uuid";
+import { supabase } from "@/lib/supabase";
 
 puppeteer.use(StealthPlugin());
 
@@ -41,14 +43,22 @@ export async function GET() {
       elements.slice(0, 20).map((el) => el.textContent?.trim())
     );
 
-    const teamsData = positions.map((position, index) => ({
-      position,
-      team_name: names[index],
+    const teamsData = positions.map((ranking, index) => ({
+      id: uuidv4(),
+      ranking: ranking,
+      name: names[index],
       points: points[index],
-      logo_url: teamLogos[index],
+      logoUrl: teamLogos[index],
     }));
 
     await browser.close();
+
+    const { error } = await supabase.from("team").insert(teamsData);
+
+    if (error) {
+      console.error("Error inserting data into Supabase:", error);
+      return NextResponse.json({ error: "Failed to insert data into Supabase." }, { status: 500 });
+    }
 
     return NextResponse.json(teamsData); 
   } catch (error) {
@@ -56,3 +66,4 @@ export async function GET() {
     return NextResponse.json({ error: "Failed to scrape data." }, { status: 500 });
   }
 }
+
