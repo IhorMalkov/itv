@@ -3,9 +3,9 @@ import styles from './team.module.css'
 import Card from './Card'
 
 interface TeamCardProps {
-  position: number
+  position: string
   name: string
-  points: number
+  points: string
   logo: string
 }
 
@@ -30,7 +30,7 @@ export default function TeamCard({ position, name, points, logo }: TeamCardProps
         <div className={styles.graph}>
           <div
             className={styles.graphBar}
-            style={{ height: `${(points / 1000) * 100}%` }}
+            style={{ height: `${(parseInt(points) / 1000) * 100}%` }}
           ></div>
         </div>
       </div>

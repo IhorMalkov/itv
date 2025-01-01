@@ -47,7 +47,7 @@ export default function RankingPage() {
             <h1 className={styles.title}>Team Rankings</h1>
             <ul className={styles.list}>
               {teams.map((team) => (
-                <li key={team.id}>
+                <li key={team.name}>
                   {" "}
                   <TeamCard
                     position={team.ranking}

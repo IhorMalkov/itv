@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { v4 as uuidv4 } from "uuid";
 import { supabase } from "@/lib/supabase";
 
 puppeteer.use(StealthPlugin());
@@ -44,7 +43,6 @@ export async function GET() {
     );
 
     const teamsData = positions.map((ranking, index) => ({
-      id: uuidv4(),
       ranking: ranking,
       name: names[index],
       points: points[index],
@@ -53,7 +51,7 @@ export async function GET() {
 
     await browser.close();
 
-    const { error } = await supabase.from("team").insert(teamsData);
+    const { error } = await supabase.from("team").upsert(teamsData, { onConflict: ["name"] });
 
     if (error) {
       console.error("Error inserting data into Supabase:", error);
