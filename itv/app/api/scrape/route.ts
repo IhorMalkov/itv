@@ -1,24 +1,35 @@
 import { NextResponse } from "next/server";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import NodeCache from "node-cache";
 import { supabase } from "@/lib/supabase";
 
 puppeteer.use(StealthPlugin());
 
+const cache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
+
 export async function GET() {
   try {
-    const browser = await puppeteer.launch({ headless: true }); 
+    const cachedData = cache.get("teamData");
+    if (cachedData) {
+      console.log("Serving data from cache");
+      return NextResponse.json(cachedData);
+    }
+
+    console.log("Scraping new data...");
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     const url = "https://www.hltv.org/ranking/teams/2024/december/16";
 
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
     );
-
     await page.goto(url, { waitUntil: "networkidle2" });
 
     try {
-      const [acceptButton] = await page.$x("//button[text()='Allow all Cookies']");
+      const [acceptButton] = await page.$x(
+        "//button[text()='Allow all Cookies']"
+      );
       if (acceptButton) {
         await acceptButton.click();
       }
@@ -31,9 +42,9 @@ export async function GET() {
     );
     const teamLogos = await page.$$eval(".team-logo img", (images) =>
       images
-        .filter((img) => !img.classList.contains("day-only")) 
-        .slice(0, 20) 
-        .map((img) => img.getAttribute("src")) 
+        .filter((img) => !img.classList.contains("day-only"))
+        .slice(0, 20)
+        .map((img) => img.getAttribute("src"))
     );
     const names = await page.$$eval(".name", (elements) =>
       elements.slice(0, 20).map((el) => el.textContent?.trim())
@@ -51,17 +62,27 @@ export async function GET() {
 
     await browser.close();
 
-    const { error } = await supabase.from("team").upsert(teamsData, { onConflict: ["name"] });
-
+    // Store the scraped data in Supabase
+    const { error } = await supabase
+      .from("team")
+      .upsert(teamsData, { onConflict: ["name"] });
     if (error) {
       console.error("Error inserting data into Supabase:", error);
-      return NextResponse.json({ error: "Failed to insert data into Supabase." }, { status: 500 });
+      return NextResponse.json(
+        { error: "Failed to insert data into Supabase." },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json(teamsData); 
+    cache.set("teamData", teamsData);
+    console.log("Data cached successfully");
+
+    return NextResponse.json(teamsData);
   } catch (error) {
     console.error("Error scraping:", error);
-    return NextResponse.json({ error: "Failed to scrape data." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to scrape data." },
+      { status: 500 }
+    );
   }
 }
-

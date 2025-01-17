@@ -1,15 +1,24 @@
-import React from 'react'
-import styles from './team.module.css'
-import Card from './Card'
+import React from "react";
+import styles from "./team.module.css";
+import Card from "./Card";
 
 interface TeamCardProps {
-  position: string
-  name: string
-  points: string
-  logo: string
+  position: string;
+  name: string;
+  points: string;
+  logo: string;
 }
 
-export default function TeamCard({ position, name, points, logo }: TeamCardProps) {
+export default function TeamCard({
+  position,
+  name,
+  points,
+  logo,
+}: TeamCardProps) {
+  const cleanedPoints = points.replace(/[^\d]/g, "");
+  const pointsValue = parseInt(cleanedPoints);
+  const normalizedHeight = pointsValue > 0 ? (pointsValue / 1000) * 100 : 0;
+
   return (
     <Card className={styles.card}>
       <div className={styles.position}>
@@ -30,11 +39,10 @@ export default function TeamCard({ position, name, points, logo }: TeamCardProps
         <div className={styles.graph}>
           <div
             className={styles.graphBar}
-            style={{ height: `${(parseInt(points) / 1000) * 100}%` }}
+            style={{ height: `${normalizedHeight}%` }}
           ></div>
         </div>
       </div>
     </Card>
   );
 }
-
