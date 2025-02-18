@@ -5,7 +5,6 @@ import { insertTeamsData } from "@/lib/database";
 
 puppeteer.use(StealthPlugin());
 
-
 export async function GET() {
   try {
     console.log("Scraping new data...");
@@ -34,11 +33,16 @@ export async function GET() {
       elements.slice(0, 20).map((el) => el.textContent?.trim())
     );
 
+    const teamLinks = await page.$$eval(".moreLink", (elements) =>
+    elements.slice(0, 20).map((el) => el.textContent?.trim())
+    );
+
     const teamsData = positions.map((ranking, index) => ({
       ranking: ranking,
       name: names[index],
       points: points[index],
       logoUrl: teamLogos[index],
+      teamLinks: teamLinks[index],
     }));
 
     await browser.close();
