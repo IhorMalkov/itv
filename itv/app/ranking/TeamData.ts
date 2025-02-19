@@ -4,5 +4,6 @@ export default interface TeamData {
     name: string;
     points: string;
     logoUrl: string;
+    teamLink: string;
 }
 

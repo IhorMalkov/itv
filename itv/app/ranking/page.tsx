@@ -3,6 +3,7 @@ import Header from "@/components/Header/Header";
 import Loader from "@/components/Loader/Loader";
 import TeamCard from "@/components/TeamCard/TeamCard";
 import TeamData from "@/app/ranking/TeamData";
+import Link from 'next/link'
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
@@ -20,7 +21,7 @@ export default function RankingPage() {
           return;
         }
 
-        const response = await fetch("/api/scrape");
+        const response = await fetch("/api/scrapeRanks");
         if (!response.ok) {
           throw new Error("Failed to fetch team data.");
         }
@@ -50,14 +51,18 @@ export default function RankingPage() {
               {teams.map((team) => (
                 <li key={team.name}>
                   {" "}
-                  <TeamCard
-                    position={team.ranking}
-                    name={team.name}
-                    points={team.points}
-                    logo={team.logoUrl}
-                  />
+                  <Link href={`/teams/${encodeURIComponent(team.teamLink)}`} legacyBehavior>
+                    <a className={styles.teamLink}>
+                      <TeamCard
+                          position={team.ranking}
+                          name={team.name}
+                          points={team.points}
+                          logo={team.logoUrl}
+                      />
+                    </a>
+                  </Link>
                 </li>
-              ))}
+                ))}
             </ul>
           </>
         )}

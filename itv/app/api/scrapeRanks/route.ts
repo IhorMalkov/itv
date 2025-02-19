@@ -33,8 +33,8 @@ export async function GET() {
       elements.slice(0, 20).map((el) => el.textContent?.trim())
     );
 
-    const teamLinks = await page.$$eval(".moreLink", (elements) =>
-    elements.slice(0, 20).map((el) => el.textContent?.trim())
+    const teamLinks = await page.$$eval("a.moreLink:not(.details)", (elements) =>
+        elements.slice(0, 20).map((el) => el.getAttribute("href"))
     );
 
     const teamsData = positions.map((ranking, index) => ({
@@ -42,7 +42,7 @@ export async function GET() {
       name: names[index],
       points: points[index],
       logoUrl: teamLogos[index],
-      teamLinks: teamLinks[index],
+      teamLink: teamLinks[index],
     }));
 
     await browser.close();
@@ -53,7 +53,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error scraping:", error);
     return NextResponse.json(
-      { error: "Failed to scrape data." },
+      { error: "Failed to scrapeRanks data." },
       { status: 500 }
     );
   }

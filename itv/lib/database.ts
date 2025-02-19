@@ -2,7 +2,7 @@ import {supabase} from "./supabase";
 
 export async function insertTeamsData(teamsData) {
     const { error } = await supabase
-        .from("team")
+        .from("ranking")
         .upsert(teamsData, { onConflict: ["name"] });
 
     if (error) {
