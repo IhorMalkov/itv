@@ -1,4 +1,4 @@
-export default interface TeamData {
+export default interface RankingData {
     id: string;
     ranking: string;
     name: string;

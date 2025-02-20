@@ -2,13 +2,13 @@
 import Header from "@/components/Header/Header";
 import Loader from "@/components/Loader/Loader";
 import TeamCard from "@/components/TeamCard/TeamCard";
-import TeamData from "@/app/ranking/TeamData";
+import RankingData from "@/app/ranking/RankingData";
 import Link from 'next/link'
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 export default function RankingPage() {
-  const [teams, setTeams] = useState<TeamData[]>([]);
+  const [teams, setTeams] = useState<RankingData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
