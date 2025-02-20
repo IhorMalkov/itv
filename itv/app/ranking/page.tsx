@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/components/Header/Header";
 import Loader from "@/components/Loader/Loader";
-import TeamCard from "@/components/TeamCard/TeamCard";
+import RankingCard from "@/components/RankingCard/RankingCard";
 import RankingData from "@/app/ranking/RankingData";
 import Link from 'next/link'
 import { useEffect, useState } from "react";
@@ -53,7 +53,7 @@ export default function RankingPage() {
                   {" "}
                   <Link href={`/teams/${encodeURIComponent(team.teamLink)}`} legacyBehavior>
                     <a className={styles.teamLink}>
-                      <TeamCard
+                      <RankingCard
                           position={team.ranking}
                           name={team.name}
                           points={team.points}

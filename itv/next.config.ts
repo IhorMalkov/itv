@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-        config.externals.push('puppeteer', 'puppeteer-extra', 'puppeteer-extra-plugin-stealth');
+    webpack: (config, { isServer }) => {
+        if (isServer) {
+            config.externals.push('puppeteer', 'puppeteer-extra', 'puppeteer-extra-plugin-stealth');
+        }
+        return config;
     }
-    return config;
-},
 };
 
 export default nextConfig;

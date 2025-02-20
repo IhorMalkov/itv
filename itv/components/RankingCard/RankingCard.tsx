@@ -9,7 +9,7 @@ interface TeamCardProps {
   logo: string;
 }
 
-export default function TeamCard({
+export default function RankingCard({
   position,
   name,
   points,
