@@ -1,9 +1,13 @@
 import {supabase} from "./supabase";
 
-export async function insertTeamsData(teamsData) {
+export async function insertTeamsData(teamsData, tableName) {
+    
+    const conflictColumn = tableName === "ranking" ? "name" : "teamName";
+
     const { error } = await supabase
-        .from("ranking")
-        .upsert(teamsData, { onConflict: ["name"] });
+        .from(tableName)
+        .upsert(teamsData, { onConflict: [conflictColumn] });
+        
 
     if (error) {
         console.error("Error inserting data into Supabase:", error);

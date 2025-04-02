@@ -1,10 +1,10 @@
 import './global.css'
-import Header from "@/components/Header/Header";
+import Home from '@/components/Home/Home';
 
-export default function Home(){
+export default function App(){
   return(
     <div className='page_container'>
-      <Header/>
+      <Home />
     </div>
   )
 }

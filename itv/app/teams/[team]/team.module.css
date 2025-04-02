@@ -1,0 +1,240 @@
+.container {
+  width: 100%;
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.content {
+  max-width: 1600px; 
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 95%; 
+}
+
+.teamContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.teamHeader {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.teamLogoContainer {
+  flex-shrink: 0;
+}
+
+.teamLogo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+}
+
+.teamInfo {
+  flex-grow: 1;
+}
+
+.teamName {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientMove 3s linear infinite;
+}
+
+.teamCoach {
+  font-size: 1rem;
+  color: #a0a0a0;
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.playersSection {
+  padding: 1.5rem;
+  background-color: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.playersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+  gap: 1.5rem;
+}
+
+.playerCard {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.playerCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1);
+}
+
+.playerImageContainer {
+  height: 200px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.playerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.playerCard:hover .playerImage {
+  transform: scale(1.05);
+}
+
+.playerInfo {
+  padding: 1rem;
+  text-align: center;
+}
+
+.playerName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00ffff;
+}
+
+.trophiesSection {
+  padding: 1.5rem;
+  background-color: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #00ffff;
+}
+
+.trophiesContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem; 
+  scrollbar-width: thin;
+  scrollbar-color: #00ffff rgba(255, 255, 255, 0.1);
+}
+
+.trophiesContainer::-webkit-scrollbar {
+  height: 8px;
+}
+
+.trophiesContainer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.trophiesContainer::-webkit-scrollbar-thumb {
+  background-color: #00ffff;
+  border-radius: 4px;
+}
+
+.trophyItem {
+  flex: 0 0 auto;
+  width: 120px; 
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0.5rem;
+}
+
+.trophyItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1);
+}
+
+.trophyImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 2rem;
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .teamHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .teamName {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .playersGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .playerImageContainer {
+    height: 140px;
+  }
+
+  .playerImage{
+    width: 140px;
+    height: 150px;
+  }
+
+  .trophyItem {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+
+  
+  

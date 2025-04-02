@@ -1,6 +1,7 @@
     import { NextResponse } from "next/server";
     import puppeteer from "puppeteer-extra";
     import StealthPlugin from "puppeteer-extra-plugin-stealth";
+    import { insertTeamsData } from "@/lib/database";
 
     puppeteer.use(StealthPlugin());
 
@@ -29,23 +30,34 @@
             await page.goto(url, { waitUntil: "networkidle2" });
 
             const teamLogos = await page.$$eval(".teamlogo", (images) =>
-                images.filter((img) => !img.classList.contains("day-only"))
-                    .map((img) => img.getAttribute("src"))
+                images
+                    .filter((img) => !img.classList.contains("day-only"))
+                    .map((img) => {
+                        const src = img.getAttribute("src");
+                        return src.startsWith("http") ? src : `https://www.hltv.org${src}`;
+                    })
             );
 
             const teamName = await page.$eval('.profile-team-name', (name) => name.textContent);
 
-            const teamPlayersNames = await page.$$eval(".text-ellipsis", (players) =>
+            const teamPlayersNames = await page.$$eval(".text-ellipsis.bold", (players) =>
             players.slice(0,5).map((player) => player.textContent?.trim() || ""));
 
             const teamPlayerPhotos = await page.$$eval('.bodyshot-team-img', (images) =>
-                images.map((img) => img.getAttribute("src")));
+                images.map((img) => {
+                    const src = img.getAttribute("src");
+                    return src.startsWith("http") ? src : `https://www.hltv.org${src}`;
+                })
+            );
 
             const teamCoach = await page.$eval('.bold.a-default', (coach) => coach.textContent);
 
             const trophyImages = await page.$$eval(".trophyIcon", (images) =>
-                images.map((img) => img.getAttribute("src"))
-            );
+                images.map((img) => {
+                    const src = img.getAttribute("src");
+                    return src.startsWith("http") ? src : `https://www.hltv.org${src}`;
+                })
+            );;
 
             const teamData = [{
                 teamLogo: teamLogos,
@@ -57,6 +69,8 @@
             }];
 
             await browser.close();
+
+            await insertTeamsData(teamData, "teamInfo");
 
             return NextResponse.json(teamData);
         } catch (error) {

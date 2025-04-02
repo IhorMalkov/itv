@@ -47,7 +47,7 @@ export async function GET() {
 
     await browser.close();
 
-    await insertTeamsData(teamsData);
+    await insertTeamsData(teamsData, "ranking");
 
     return NextResponse.json(teamsData);
   } catch (error) {
